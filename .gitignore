@@ -7,3 +7,5 @@ layoutlm_dataset/
 best_model/
 *.zip
 .DS_Store
+data/ocr_cache/
+models/

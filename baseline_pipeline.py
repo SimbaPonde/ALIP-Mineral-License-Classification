@@ -14,7 +14,7 @@ Steps:
 
 Usage:
   python baseline_pipeline.py
-  python baseline_pipeline.py --data ./output --results ./results
+  python baseline_pipeline.py --data ./output --results ./results/synthetic_only_cv
   python baseline_pipeline.py --data ./output --folds 10
 """
 
@@ -570,7 +570,7 @@ def main():
     parser = argparse.ArgumentParser(description="ALIP Tier 1 Baseline Pipeline")
     parser.add_argument("--data",    type=str, default="./output",
                         help="Directory containing generated documents (default: ./output)")
-    parser.add_argument("--results", type=str, default="./results",
+    parser.add_argument("--results", type=str, default="./results/synthetic_only_cv",
                         help="Directory for saving results (default: ./results)")
     parser.add_argument("--folds",   type=int, default=5,
                         help="Number of cross-validation folds (default: 5)")

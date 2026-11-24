@@ -1,0 +1,7 @@
+model_a,model_b,a_only_correct,b_only_correct,p_value
+TF-IDF + LinearSVC,TF-IDF + LinearSVC [masked],0,0,1.0
+TF-IDF + LinearSVC,TF-IDF + Logistic Regression,0,0,1.0
+TF-IDF + LinearSVC,TF-IDF + Logistic Regression [masked],0,0,1.0
+TF-IDF + LinearSVC [masked],TF-IDF + Logistic Regression,0,0,1.0
+TF-IDF + LinearSVC [masked],TF-IDF + Logistic Regression [masked],0,0,1.0
+TF-IDF + Logistic Regression,TF-IDF + Logistic Regression [masked],0,0,1.0

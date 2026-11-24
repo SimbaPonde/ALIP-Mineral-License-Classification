@@ -1,0 +1,28 @@
+file_path,jurisdiction,title,tier,label,note
+data/real/uganda/form_02.pdf,Uganda,Form 2 – Application for Prospecting Licence,1,new_license_application,
+data/real/uganda/form_07.pdf,Uganda,Form 7 – Application for an Exploration Licence,1,new_license_application,
+data/real/uganda/form_12.pdf,Uganda,Form 12 – Application for Large Scale Mining Licence,1,new_license_application,
+data/real/uganda/form_17.pdf,Uganda,Form 17 – Application for Medium Scale Mining Licence,1,new_license_application,
+data/real/botswana/bw_form_i_prospecting_licence.pdf,Botswana,Form I – Prospecting Licence Application (Issue/Renewal),1,new_license_application,
+data/real/botswana/bw_form_va_mining_licence.pdf,Botswana,Form V(a) – Mining Licence Application (Issue),1,new_license_application,
+data/real/botswana/bw_form_vii_minerals_permit.pdf,Botswana,Form VII – Minerals Permit Application (Issue/Renewal),1,new_license_application,ambiguous: a Botswana minerals permit is the small-scale instrument; could be small_scale_mining_permit
+data/real/uganda/form_19.pdf,Uganda,Form 19 – Application for a Small Scale Mining Licence,1,small_scale_mining_permit,application form labelled by the instrument it applies for
+data/real/uganda/form_21.pdf,Uganda,Form 21 – Application for Artisanal Mining Licence,1,small_scale_mining_permit,application form labelled by the instrument it applies for
+data/real/uganda/form_25.pdf,Uganda,Form 25 – Application for Renewal of ELs/RLs/AMLs/SMLs/MMLs/LMLs,1,renewal_application,
+data/real/uganda/form_04.pdf,Uganda,Form 4 – Prospecting Licence Return Form,2,annual_work_programme_report,
+data/real/uganda/form_05.pdf,Uganda,Form 5 – Authorization to retain or dispose minerals from prospecting/exploration,2,other,
+data/real/uganda/form_09.pdf,Uganda,Form 9 – Application for Retention Licence,2,retention_license,
+data/real/uganda/form_11.pdf,Uganda,Form 11 – Exploration or Retention Licence Return Form,2,annual_work_programme_report,
+data/real/uganda/form_15.pdf,Uganda,Form 15 – Certificate of Amalgamation,2,amalgamation_application,
+data/real/uganda/form_23.pdf,Uganda,Form 23 – Cessation/Suspension/Curtailment of Working Obligations,2,suspension_application,
+data/real/uganda/form_27.pdf,Uganda,Form 27 – Consent to Transfer / Transfer of shares in a Mineral Licence,2,transfer_assignment_application,
+data/real/uganda/form_28.pdf,Uganda,Form 28 – Transfer of Mineral Right or Share of Mineral Right,2,deed_of_transfer,
+data/real/uganda/form_30.pdf,Uganda,Form 30 – Surrender of all or part of a licence,2,cancellation_surrender_notice,
+data/real/uganda/form_32.pdf,Uganda,Form 32 – Licence for Extraction of Geothermal Resources for Direct Use,2,other,geothermal
+data/real/uganda/form_34.pdf,Uganda,Form 34 – Renewal of Geothermal Extraction Licence,2,other,geothermal
+data/real/uganda/form_35.pdf,Uganda,Form 35 – Transfer of shares in a Geothermal Licence,2,transfer_assignment_application,geothermal
+data/real/uganda/form_38.pdf,Uganda,Form 38 – Processing/Smelting/Refining Licence Return Form,2,annual_work_programme_report,
+data/real/botswana/bw_retention_licence.pdf,Botswana,Retention Licence Application (Issue/Renewal),2,retention_license,
+data/real/uganda/form_36.pdf,Uganda,Form 36 – Application for Mineral Processing Licence,excluded,,processing licence: outside the 44-class taxonomy
+data/real/uganda/form_39.pdf,Uganda,Form 39 – Application for a Mineral Smelting Licence,excluded,,smelting licence: outside the 44-class taxonomy
+data/real/uganda/form_41.pdf,Uganda,Form 41 – Application for Mineral Refining Licence,excluded,,refining licence: outside the 44-class taxonomy

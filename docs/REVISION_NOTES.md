@@ -98,3 +98,19 @@ Report: max 10,000 features. Code: `max_features=5000`, `min_df=2`, `sublinear_t
 - LayoutLMv2: published at ACL-IJCNLP 2021 (was cited as arXiv 2020).
 - Added LIBLINEAR (LinearSVC backend). Removed uncited Naive Bayes and EU AI Act refs.
 - All references now cited in the text.
+
+---
+
+## G. Rebuild log (Nov 2026)
+
+The original Tier 2/3 scripts, the dataset merger and their result JSONs were lost. The pipeline was rebuilt from the report's description, using the 27 real forms that survived:
+
+- `data/real_labels.csv`: labels reconstructed from the form titles. They reproduce the report's counts exactly (7 NLA, 2 SSMP, 1 Renewal, 14 Tier 2, 3 out of scope: processing/smelting/refining licences). This also resolves item A4: the "3 unaccounted" documents are Uganda Forms 36, 39 and 41.
+- `build_unified_dataset.py`: fixed split (109 / 27 / 34), real docs in test only, forward-slash paths (fixes §10.2 at the source).
+- `layoutlmv3_pipeline.py`: processor called with `[words]`, `[boxes]` plus an assertion that inputs are `[1, 512]` (fixes the §10.3 bug). Smoke-tested end-to-end on CPU with a tiny random model; the real `microsoft/layoutlmv3-base` run needs Colab.
+- `llm_evaluation.py`: Ollama `/api/chat`, temperature 0, JSON-schema-constrained output with the original parse cascade as fallback, few-shot examples drawn from `train` only, per-document resume cache.
+- `compare_models.py`: scores every model on identical documents, reports real-doc accuracy separately, plus exact McNemar tests.
+
+**First held-out result (TF-IDF):** 31/34 test docs, macro F1 0.929; **7/10 real**. The errors are Uganda Form 19 and Form 21 (SSMP → NLA) and Form 25 (Renewal → SSMP), the same three documents implied by the original per-class table (B1). Masking class names changes nothing. Note: NLTK's lemmatizer data could not be downloaded in the rebuild environment, so the script's suffix-stripping fallback was used; rerun locally for the exact configuration.
+
+The headline numbers in the v2 report remain the original May 2026 figures. Once the LayoutLMv3 and Llama held-out runs are done, the report's §8 should be replaced with `results/comparison/comparison_test.md`.

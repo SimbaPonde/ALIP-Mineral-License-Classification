@@ -4,44 +4,93 @@
 Capstone project, M.S. Computer Science, Katz School of Science and Health, Yeshiva University (2026).
 Team: Enock Katenda · Ezekiel (Simba) Ponde · Tafadzwa Nyemba
 
-ALIP is an intelligent intake layer for mining cadastre systems (e.g. Trimble Landfolio, MCAS). It automatically classifies incoming mineral licensing documents (exploration licenses, mining leases, applications, EIAs, etc.) so they don't have to be read and keyed in by hand. We compare three approaches on 8 document classes:
+ALIP is an intelligent intake layer for mining cadastre systems (e.g. Trimble Landfolio, MCAS). It classifies incoming mineral licensing documents (exploration licenses, mining leases, applications, EIAs, …) so they don't have to be read and keyed in by hand. Three approaches are compared on 8 document classes:
 
-| Tier | Model | Macro F1 | Correct / 170 |
-|---|---|---|---|
-| 1 | TF-IDF + Logistic Regression / LinearSVC | 0.984 | 167 |
-| 2 | LayoutLMv3-base, fine-tuned | 0.943 | 160 |
-| 3 | Llama 3.1 8B zero-shot (local, Ollama) | 0.989 | 168 |
-| 3 | Llama 3.1 8B few-shot | 0.979 | 166 |
+| Tier | Model | Role |
+|---|---|---|
+| 1 | TF-IDF + Logistic Regression / LinearSVC | Classical baseline |
+| 2 | LayoutLMv3-base, fine-tuned (text + layout + image) | Domain fine-tuning (research hypothesis) |
+| 3 | Llama 3.1 8B zero-/few-shot, run locally via Ollama | General-purpose LLM, no training data |
 
-**Finding:** fine-tuning LayoutLMv3 did **not** beat the lexical baseline. A locally hosted zero-shot LLM matched the baseline with no labelled data and no external data transfer. See the report for limitations: the tiers used different evaluation protocols, the synthetic data has title-level label leakage, and only 3 of 8 classes have real test documents.
+## Results
+
+### Original submission (May 2026, protocols differed per tier)
+
+| Model | Macro F1 | Correct / 170 |
+|---|---|---|
+| TF-IDF + LR / LinearSVC (5-fold CV) | 0.984 | 167 |
+| LayoutLMv3 fine-tuned (evaluated on docs incl. its training data) | 0.943 | 160 |
+| Llama 3.1 8B zero-shot | 0.989 | 168 |
+| Llama 3.1 8B few-shot | 0.979 | 166 |
+
+See [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md) for why these aren't directly comparable.
+
+### Rebuilt held-out evaluation (in progress)
+
+Every model trains only on the 109 synthetic `train` docs, and is scored on the **same 34-doc `test` split** (24 synthetic + all 10 real government forms). Full table: [`results/comparison/comparison_test.md`](results/comparison/comparison_test.md).
+
+| Model | Macro F1 | Accuracy | Real docs correct | Status |
+|---|---|---|---|---|
+| TF-IDF + Logistic Regression | 0.929 | 0.912 | 7/10 | ✅ done |
+| TF-IDF + LinearSVC | 0.929 | 0.912 | 7/10 | ✅ done |
+| TF-IDF + LR, class names masked (leakage ablation) | 0.929 | 0.912 | 7/10 | ✅ done |
+| LayoutLMv3 (fine-tuned, processor bug fixed) | — | — | — | ⏳ run the Colab notebook |
+| Llama 3.1 8B zero-shot | — | — | — | ⏳ run locally with Ollama |
+| Llama 3.1 8B few-shot | — | — | — | ⏳ run locally with Ollama |
+
+All 24 synthetic test docs are classified correctly; every TF-IDF error is on a real form (2 small-scale/artisanal licence applications → New License Application; the renewal form → Small-Scale Mining Permit). With only 10 real documents, differences of a few documents between models will not be statistically significant — `compare_models.py` reports exact McNemar tests.
+
+## Reproduce
+
+```bash
+python -m venv venv && source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+python generate_synthetic_docs.py                       # 160 synthetic PDFs -> output/ (already committed)
+python build_unified_dataset.py                         # 170-doc manifest + fixed train/val/test split
+
+python baseline_heldout.py                              # Tier 1
+python baseline_heldout.py --mask-class-names           # Tier 1 leakage ablation
+python llm_evaluation.py --mode zero-shot               # Tier 3 (needs Ollama + `ollama pull llama3.1:8b`)
+python llm_evaluation.py --mode few-shot
+# Tier 2: open notebooks/ALIP_LayoutLMv3_Colab.ipynb in Colab (T4 GPU), or:
+python layoutlmv3_pipeline.py all                       # needs tesseract-ocr + poppler, ideally a GPU
+
+python compare_models.py                                # tables, per-class F1, McNemar, plot
+```
+
+Each model writes `results/predictions/<model>__test.json`; `compare_models.py` scores whatever files are present on the documents they share. The Llama script caches every response in `results/llm_cache/`, so an interrupted CPU run resumes where it stopped.
+
+## Repository layout
+
+```
+alip_common.py               # class list, descriptions, shared I/O and prediction format
+generate_synthetic_docs.py   # synthetic PDF generator (8 classes × 20, 4 jurisdictions)
+build_unified_dataset.py     # merges synthetic + real Tier 1 docs, fixed split -> data/unified_manifest.csv
+baseline_heldout.py          # Tier 1 on held-out split (+ class-name masking ablation)
+baseline_pipeline.py         # Tier 1 5-fold CV analysis (original)
+layoutlmv3_pipeline.py       # Tier 2: OCR -> fine-tune -> predict
+llm_evaluation.py            # Tier 3: Llama 3.1 via local Ollama, zero-/few-shot
+compare_models.py            # identical-document comparison, McNemar tests
+notebooks/                   # Colab notebook for LayoutLMv3
+data/real/                   # 27 public government forms (Botswana ×4, Uganda ×23)
+data/real_labels.csv         # labels: 10 Tier 1, 14 Tier 2, 3 outside the taxonomy
+output/                      # 160 synthetic PDFs + manifest
+results/                     # predictions, comparison tables, original synthetic-only CV
+docs/                        # final report (v1 original, v2 revised) + revision notes
+```
+
+## Data notes
+
+- **Real documents** are blank statutory forms published by Botswana's Ministry of Minerals and Uganda's Ministry of Energy and Mineral Development (Mining and Minerals (Licensing) Regulations, 2023). They contain no personal or company data. Labels in `data/real_labels.csv` were reconstructed in Nov 2026 and reproduce the original split (7 New License Application, 2 Small-Scale Mining Permit, 1 Renewal; 14 Tier 2; 3 out of scope). Form VII (Botswana minerals permit) is the one ambiguous case.
+- **All 10 real Tier 1 documents are application forms.** No real issued licence, lease, EIA or compliance certificate is in the dataset, so five classes are evaluated on synthetic data only.
+- **Synthetic documents print their class name as the title** (label leakage). The `--mask-class-names` ablation removes class-naming phrases; synthetic accuracy stays at 100%, so the templates are separable even without the titles.
 
 ## Documents
 
-- [`docs/ALIP_Final_Report_v2.pdf`](docs/ALIP_Final_Report_v2.pdf): revised final report ([Markdown source](docs/ALIP_Final_Report_v2.md))
-- [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md): what changed from v1 and why, plus the recommended re-runs
-- [`docs/ALIP_Final_Report_v1_original.pdf`](docs/ALIP_Final_Report_v1_original.pdf): the original submission
-
-## Repository contents
-
-```
-generate_synthetic_docs.py   # Tier 1 synthetic PDF generator (8 classes × 20, 4 jurisdictions)
-baseline_pipeline.py         # TF-IDF + LR / LinearSVC, 5-fold stratified CV, plots
-output/                      # 160 generated synthetic PDFs + manifest.csv
-results/                     # Baseline results on the 160 synthetic docs (F1 = 1.000, see note)
-docs/                        # Reports and revision notes
-```
-
-> **Note:** `results/` is from the synthetic-only baseline run (160 docs), where the class title printed on every synthetic document makes the task trivial. The 170-doc unified results in the report also include the 10 real government documents. Those documents, the dataset-merge script, the LayoutLMv3 scripts (`layoutlmv3_data_prep.py`, `layoutlmv3_finetune.py`, `layoutlmv3_reeval.py`), `llm_evaluation.py` and `compare_models.py` are not yet committed.
-
-## Quick start
-
-```bash
-python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-
-python generate_synthetic_docs.py                 # writes ./output
-python baseline_pipeline.py --data ./output --results ./results
-```
+- [`docs/ALIP_Final_Report_v2.pdf`](docs/ALIP_Final_Report_v2.pdf): revised final report ([Markdown](docs/ALIP_Final_Report_v2.md))
+- [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md): v1 → v2 changes and the rebuild log
+- [`docs/ALIP_Final_Report_v1_original.pdf`](docs/ALIP_Final_Report_v1_original.pdf): original submission
 
 ## Stack
-Python · scikit-learn · NLTK · pdfplumber · ReportLab · Hugging Face Transformers (LayoutLMv3) · Tesseract OCR · Ollama (Llama 3.1 8B) · Google Colab (T4)
+Python · scikit-learn · NLTK · pdfplumber · ReportLab · PyTorch · Hugging Face Transformers (LayoutLMv3) · Tesseract OCR · Ollama (Llama 3.1 8B) · Google Colab
