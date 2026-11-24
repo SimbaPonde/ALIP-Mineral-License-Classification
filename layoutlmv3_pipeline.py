@@ -119,13 +119,16 @@ def collate(batch):
 def run_eval(model, loader, device):
     import torch
     model.eval()
-    preds, gold = [], []
+    preds, gold, loss_sum, n = [], [], 0.0, 0
     with torch.no_grad():
         for batch in loader:
             labels = batch.pop("labels")
             logits = model(**{k: v.to(device) for k, v in batch.items()}).logits
+            loss_sum += torch.nn.functional.cross_entropy(logits, labels.to(device), reduction="sum").item()
+            n += len(labels)
             preds += logits.argmax(-1).cpu().tolist()
             gold += labels.tolist()
+    run_eval.last_loss = loss_sum / max(n, 1)
     return preds, gold
 
 
@@ -155,7 +158,10 @@ def stage_train(args):
     total = args.epochs * len(train_dl)
     sched = get_cosine_schedule_with_warmup(opt, int(0.1 * total), total)
 
-    best, bad_epochs, history = -1.0, 0, []
+    # Model selection: highest val macro-F1, ties broken by lower val loss.
+    # (Val F1 saturates at 1.0 on synthetic data within ~2 epochs; selecting on F1
+    # alone kept a barely-trained checkpoint.)
+    best, best_loss, bad_epochs, history = -1.0, float("inf"), 0, []
     for epoch in range(1, args.epochs + 1):
         model.train()
         t0, loss_sum = time.time(), 0.0
@@ -167,19 +173,23 @@ def stage_train(args):
             loss_sum += out.loss.item()
         preds, gold = run_eval(model, val_dl, device)
         f1 = f1_score(gold, preds, average="macro", labels=list(range(len(CLASS_LABELS))), zero_division=0)
-        history.append({"epoch": epoch, "train_loss": loss_sum / len(train_dl), "val_macro_f1": f1})
-        print(f"epoch {epoch:2d}  loss={loss_sum / len(train_dl):.4f}  val_f1={f1:.4f}  ({time.time() - t0:.0f}s)")
-        if f1 > best:
-            best, bad_epochs = f1, 0
+        val_loss = run_eval.last_loss
+        history.append({"epoch": epoch, "train_loss": loss_sum / len(train_dl), "val_loss": val_loss,
+                        "val_macro_f1": f1})
+        print(f"epoch {epoch:2d}  loss={loss_sum / len(train_dl):.4f}  val_loss={val_loss:.4f}  "
+              f"val_f1={f1:.4f}  ({time.time() - t0:.0f}s)")
+        if f1 > best or (f1 == best and val_loss < best_loss - 1e-4):
+            best, best_loss, bad_epochs = f1, val_loss, 0
             model.save_pretrained(args.out); processor.save_pretrained(args.out)
+            print(f"   saved (epoch {epoch})")
         else:
             bad_epochs += 1
             if bad_epochs >= args.patience:
                 print(f"early stopping (patience={args.patience})")
                 break
     with open(os.path.join(args.out, "train_history.json"), "w") as f:
-        json.dump({"best_val_macro_f1": best, "history": history, "args": vars(args)}, f, indent=2)
-    print(f"best val macro-F1 = {best:.4f}; checkpoint in {args.out}")
+        json.dump({"best_val_macro_f1": best, "best_val_loss": best_loss, "history": history, "args": vars(args)}, f, indent=2)
+    print(f"best val macro-F1 = {best:.4f} (val loss {best_loss:.4f}); checkpoint in {args.out}")
 
 
 # ── Stage 3: predict ─────────────────────────────────────────────────────────
