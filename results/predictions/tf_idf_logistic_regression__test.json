@@ -17,7 +17,7 @@
       "strip_accents": "unicode"
     },
     "mask_class_names": false,
-    "train_time_sec": 0.14
+    "train_time_sec": 2.97
   },
   "predictions": [
     {

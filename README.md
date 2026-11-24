@@ -34,13 +34,17 @@ Every model trains only on the 109 synthetic `train` docs, and is scored on the 
 | TF-IDF + Logistic Regression | 0.929 | 0.912 | 7/10 | ✅ done |
 | TF-IDF + LinearSVC | 0.929 | 0.912 | 7/10 | ✅ done |
 | TF-IDF + LR, class names masked (leakage ablation) | 0.929 | 0.912 | 7/10 | ✅ done |
-| LayoutLMv3 (fine-tuned, processor bug fixed) | — | — | — | ⏳ run the Colab notebook |
-| Llama 3.1 8B zero-shot | — | — | — | ⏳ run locally with Ollama |
-| Llama 3.1 8B few-shot | — | — | — | ⏳ run locally with Ollama |
+| LayoutLMv3 (fine-tuned, processor bug fixed) | — | — | — | ⏳ Colab notebook |
+| Llama 3.1 8B zero-shot | — | — | — | ⏳ Colab notebook |
+| Llama 3.1 8B few-shot | — | — | — | ⏳ Colab notebook |
 
 All 24 synthetic test docs are classified correctly; every TF-IDF error is on a real form (2 small-scale/artisanal licence applications → New License Application; the renewal form → Small-Scale Mining Permit). With only 10 real documents, differences of a few documents between models will not be statistically significant — `compare_models.py` reports exact McNemar tests.
 
 ## Reproduce
+
+**Easiest:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SimbaPonde/ALIP-Mineral-License-Classification/blob/main/notebooks/ALIP_Colab_All_Models.ipynb) → T4 GPU → Run all. Runs every tier (TF-IDF, LayoutLMv3, Llama via Ollama) and downloads the results.
+
+Locally:
 
 ```bash
 python -m venv venv && source venv/bin/activate        # Windows: venv\Scripts\activate
@@ -53,7 +57,7 @@ python baseline_heldout.py                              # Tier 1
 python baseline_heldout.py --mask-class-names           # Tier 1 leakage ablation
 python llm_evaluation.py --mode zero-shot               # Tier 3 (needs Ollama + `ollama pull llama3.1:8b`)
 python llm_evaluation.py --mode few-shot
-# Tier 2: open notebooks/ALIP_LayoutLMv3_Colab.ipynb in Colab (T4 GPU), or:
+# Tier 2:
 python layoutlmv3_pipeline.py all                       # needs tesseract-ocr + poppler, ideally a GPU
 
 python compare_models.py                                # tables, per-class F1, McNemar, plot
@@ -72,7 +76,7 @@ baseline_pipeline.py         # Tier 1 5-fold CV analysis (original)
 layoutlmv3_pipeline.py       # Tier 2: OCR -> fine-tune -> predict
 llm_evaluation.py            # Tier 3: Llama 3.1 via local Ollama, zero-/few-shot
 compare_models.py            # identical-document comparison, McNemar tests
-notebooks/                   # Colab notebook for LayoutLMv3
+notebooks/                   # Colab notebook that runs all tiers
 data/real/                   # 27 public government forms (Botswana ×4, Uganda ×23)
 data/real_labels.csv         # labels: 10 Tier 1, 14 Tier 2, 3 outside the taxonomy
 output/                      # 160 synthetic PDFs + manifest

@@ -1,7 +1,7 @@
 """
 ALIP – Tier 2: LayoutLMv3 fine-tuning (rebuilt).
 
-Three stages, each runnable on its own (Colab notebook: notebooks/ALIP_LayoutLMv3_Colab.ipynb):
+Three stages, each runnable on its own (Colab notebook: notebooks/ALIP_Colab_All_Models.ipynb):
 
   ocr      Render page 1 of every PDF at 200 DPI and run Tesseract -> words + boxes
            (normalised to 0..1000). Cached to data/ocr_cache/<doc_id>.json + .png
