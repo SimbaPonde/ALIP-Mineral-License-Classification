@@ -2,15 +2,21 @@ model_a,model_b,a_only_correct,b_only_correct,p_value
 TF-IDF + LinearSVC,TF-IDF + LinearSVC [masked],0,0,1.0
 TF-IDF + LinearSVC,TF-IDF + Logistic Regression,0,0,1.0
 TF-IDF + LinearSVC,TF-IDF + Logistic Regression [masked],0,0,1.0
+TF-IDF + LinearSVC,LayoutLMv3 (fine-tuned),7,1,0.0703125
 TF-IDF + LinearSVC,Llama 3.1 8B (few-shot),0,1,1.0
 TF-IDF + LinearSVC,Llama 3.1 8B (zero-shot),4,3,1.0
 TF-IDF + LinearSVC [masked],TF-IDF + Logistic Regression,0,0,1.0
 TF-IDF + LinearSVC [masked],TF-IDF + Logistic Regression [masked],0,0,1.0
+TF-IDF + LinearSVC [masked],LayoutLMv3 (fine-tuned),7,1,0.0703125
 TF-IDF + LinearSVC [masked],Llama 3.1 8B (few-shot),0,1,1.0
 TF-IDF + LinearSVC [masked],Llama 3.1 8B (zero-shot),4,3,1.0
 TF-IDF + Logistic Regression,TF-IDF + Logistic Regression [masked],0,0,1.0
+TF-IDF + Logistic Regression,LayoutLMv3 (fine-tuned),7,1,0.0703125
 TF-IDF + Logistic Regression,Llama 3.1 8B (few-shot),0,1,1.0
 TF-IDF + Logistic Regression,Llama 3.1 8B (zero-shot),4,3,1.0
+TF-IDF + Logistic Regression [masked],LayoutLMv3 (fine-tuned),7,1,0.0703125
 TF-IDF + Logistic Regression [masked],Llama 3.1 8B (few-shot),0,1,1.0
 TF-IDF + Logistic Regression [masked],Llama 3.1 8B (zero-shot),4,3,1.0
+LayoutLMv3 (fine-tuned),Llama 3.1 8B (few-shot),1,8,0.0390625
+LayoutLMv3 (fine-tuned),Llama 3.1 8B (zero-shot),2,7,0.1796875
 Llama 3.1 8B (few-shot),Llama 3.1 8B (zero-shot),4,2,0.6875

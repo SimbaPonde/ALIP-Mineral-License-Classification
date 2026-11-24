@@ -14,7 +14,7 @@ ALIP is an intelligent intake layer for mining cadastre systems (e.g. Trimble La
 
 ## Results
 
-### Original submission (May 2026, protocols differed per tier)
+### Original submission (May 2026; superseded, protocols differed per tier)
 
 | Model | Macro F1 | Correct / 170 |
 |---|---|---|
@@ -25,7 +25,7 @@ ALIP is an intelligent intake layer for mining cadastre systems (e.g. Trimble La
 
 See [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md) for why these aren't directly comparable.
 
-### Rebuilt held-out evaluation (in progress)
+### Held-out evaluation (Nov 2026) — current results
 
 Every model trains only on the 109 synthetic `train` docs, and is scored on the **same 34-doc `test` split** (24 synthetic + all 10 real government forms). Full table: [`results/comparison/comparison_test.md`](results/comparison/comparison_test.md).
 
@@ -34,11 +34,11 @@ Every model trains only on the 109 synthetic `train` docs, and is scored on the 
 | TF-IDF + Logistic Regression | 0.929 | 0.912 | 7/10 | ✅ done |
 | TF-IDF + LinearSVC | 0.929 | 0.912 | 7/10 | ✅ done |
 | TF-IDF + LR, class names masked (leakage ablation) | 0.929 | 0.912 | 7/10 | ✅ done |
-| LayoutLMv3 (fine-tuned, processor bug fixed) | — | — | — | ⏳ Colab notebook |
+| LayoutLMv3 (fine-tuned, processor bug fixed) | 0.769 | 0.735 | **1/10** | ✅ done |
 | Llama 3.1 8B zero-shot | 0.919 | 0.882 | 8/10 | ✅ done |
 | Llama 3.1 8B few-shot | 0.957 | 0.941 | 8/10 | ✅ done |
 
-No pairwise difference is statistically significant (exact McNemar, all p ≥ 0.69). Zero-shot Llama labels *applications for* a prospecting licence as a prospecting permit (4 errors: 2 synthetic, 2 real); one example per class in the prompt (few-shot) fixes this. Every TF-IDF error is on a real form (2 small-scale/artisanal licence applications → New License Application; the renewal form → Small-Scale Mining Permit). With only 10 real documents, differences of a few documents between models will not be statistically significant — `compare_models.py` reports exact McNemar tests.
+**Few-shot Llama is best; fine-tuned LayoutLMv3 is worst** and significantly worse than few-shot Llama (exact McNemar p = 0.039). LayoutLMv3 gets all 24 synthetic docs right but only 1/10 real forms: with ~14 template-generated training docs per class it memorises template layouts. TF-IDF and Llama can't be separated statistically (p ≥ 0.69). Zero-shot Llama labels *applications for* a prospecting licence as a prospecting permit (4 errors: 2 synthetic, 2 real); one example per class in the prompt (few-shot) fixes this. Every TF-IDF error is on a real form (2 small-scale/artisanal licence applications → New License Application; the renewal form → Small-Scale Mining Permit). With only 10 real documents, differences of a few documents between models will not be statistically significant — `compare_models.py` reports exact McNemar tests.
 
 ## Reproduce
 
@@ -81,7 +81,7 @@ data/real/                   # 27 public government forms (Botswana ×4, Uganda 
 data/real_labels.csv         # labels: 10 Tier 1, 14 Tier 2, 3 outside the taxonomy
 output/                      # 160 synthetic PDFs + manifest
 results/                     # predictions, comparison tables, original synthetic-only CV
-docs/                        # final report (v1 original, v2 revised) + revision notes
+docs/                        # final report (v1 original, v3 current) + revision notes
 ```
 
 ## Data notes
@@ -92,8 +92,8 @@ docs/                        # final report (v1 original, v2 revised) + revision
 
 ## Documents
 
-- [`docs/ALIP_Final_Report_v2.pdf`](docs/ALIP_Final_Report_v2.pdf): revised final report ([Markdown](docs/ALIP_Final_Report_v2.md))
-- [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md): v1 → v2 changes and the rebuild log
+- [`docs/ALIP_Final_Report_v3.pdf`](docs/ALIP_Final_Report_v3.pdf): final report, revised with held-out results ([Markdown](docs/ALIP_Final_Report_v3.md))
+- [`docs/REVISION_NOTES.md`](docs/REVISION_NOTES.md): review of v1, rebuild log, v3 changes
 - [`docs/ALIP_Final_Report_v1_original.pdf`](docs/ALIP_Final_Report_v1_original.pdf): original submission
 
 ## Stack

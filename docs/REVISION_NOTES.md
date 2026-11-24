@@ -114,3 +114,16 @@ The original Tier 2/3 scripts, the dataset merger and their result JSONs were lo
 **First held-out result (TF-IDF):** 31/34 test docs, macro F1 0.929; **7/10 real**. The errors are Uganda Form 19 and Form 21 (SSMP → NLA) and Form 25 (Renewal → SSMP), the same three documents implied by the original per-class table (B1). Masking class names changes nothing. Note: NLTK's lemmatizer data could not be downloaded in the rebuild environment, so the script's suffix-stripping fallback was used; rerun locally for the exact configuration.
 
 The headline numbers in the v2 report remain the original May 2026 figures. Once the LayoutLMv3 and Llama held-out runs are done, the report's §8 should be replaced with `results/comparison/comparison_test.md`.
+
+## H. v3 report (Nov 2026)
+
+All held-out runs are complete, and the report has been updated to v3 (§7–8 rewritten, abstract, conclusion, goals, risks and future work updated; the May 2026 numbers are kept as §8.4 for reference). This resolves every VERIFY item: the original per-class figures are superseded rather than reconciled.
+
+| Model | Macro F1 | Real correct |
+|---|---|---|
+| Llama 3.1 8B few-shot | 0.957 | 8/10 |
+| TF-IDF + LR / SVC | 0.929 | 7/10 |
+| Llama 3.1 8B zero-shot | 0.919 | 8/10 |
+| LayoutLMv3 fine-tuned | 0.769 | 1/10 |
+
+LayoutLMv3 run log: OCR, 15 epochs, best checkpoint = epoch 15 (val loss 0.030; val F1 1.000 from epoch 2). The checkpoint-selection fix (ties broken by val loss) did not change the outcome: the epoch-2 checkpoint scored 26/34, the epoch-15 checkpoint 25/34.
