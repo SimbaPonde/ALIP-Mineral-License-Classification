@@ -1,0 +1,251 @@
+{
+  "model": "Llama 3.1 8B (zero-shot)",
+  "tier": 3,
+  "split": "test",
+  "meta": {
+    "ollama_model": "llama3.1:8b",
+    "mode": "zero-shot",
+    "max_chars": 2500,
+    "mean_seconds_per_doc": 4.1
+  },
+  "predictions": [
+    {
+      "doc_id": "exploration_license_005",
+      "true": "exploration_license",
+      "pred": "exploration_license",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "exploration_license_008",
+      "true": "exploration_license",
+      "pred": "exploration_license",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "exploration_license_020",
+      "true": "exploration_license",
+      "pred": "exploration_license",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "prospecting_permit_007",
+      "true": "prospecting_permit",
+      "pred": "prospecting_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "prospecting_permit_011",
+      "true": "prospecting_permit",
+      "pred": "prospecting_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "prospecting_permit_020",
+      "true": "prospecting_permit",
+      "pred": "prospecting_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "mining_lease_011",
+      "true": "mining_lease",
+      "pred": "mining_lease",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "mining_lease_014",
+      "true": "mining_lease",
+      "pred": "mining_lease",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "mining_lease_019",
+      "true": "mining_lease",
+      "pred": "mining_lease",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "small_scale_mining_permit_003",
+      "true": "small_scale_mining_permit",
+      "pred": "small_scale_mining_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "small_scale_mining_permit_005",
+      "true": "small_scale_mining_permit",
+      "pred": "small_scale_mining_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "small_scale_mining_permit_014",
+      "true": "small_scale_mining_permit",
+      "pred": "small_scale_mining_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "new_license_application_001",
+      "true": "new_license_application",
+      "pred": "prospecting_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "new_license_application_002",
+      "true": "new_license_application",
+      "pred": "prospecting_permit",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "new_license_application_018",
+      "true": "new_license_application",
+      "pred": "new_license_application",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "renewal_application_003",
+      "true": "renewal_application",
+      "pred": "renewal_application",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "renewal_application_009",
+      "true": "renewal_application",
+      "pred": "renewal_application",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "renewal_application_019",
+      "true": "renewal_application",
+      "pred": "renewal_application",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "environmental_impact_assessment_012",
+      "true": "environmental_impact_assessment",
+      "pred": "environmental_impact_assessment",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "environmental_impact_assessment_014",
+      "true": "environmental_impact_assessment",
+      "pred": "environmental_impact_assessment",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "environmental_impact_assessment_016",
+      "true": "environmental_impact_assessment",
+      "pred": "environmental_impact_assessment",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "environmental_compliance_certificate_007",
+      "true": "environmental_compliance_certificate",
+      "pred": "environmental_compliance_certificate",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "environmental_compliance_certificate_008",
+      "true": "environmental_compliance_certificate",
+      "pred": "environmental_compliance_certificate",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "environmental_compliance_certificate_014",
+      "true": "environmental_compliance_certificate",
+      "pred": "environmental_compliance_certificate",
+      "source": "synthetic",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_form_02",
+      "true": "new_license_application",
+      "pred": "prospecting_permit",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_form_07",
+      "true": "new_license_application",
+      "pred": "new_license_application",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_form_12",
+      "true": "new_license_application",
+      "pred": "new_license_application",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_form_17",
+      "true": "new_license_application",
+      "pred": "new_license_application",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_bw_form_i_prospecting_licence",
+      "true": "new_license_application",
+      "pred": "prospecting_permit",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_bw_form_va_mining_licence",
+      "true": "new_license_application",
+      "pred": "new_license_application",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_bw_form_vii_minerals_permit",
+      "true": "new_license_application",
+      "pred": "new_license_application",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_form_19",
+      "true": "small_scale_mining_permit",
+      "pred": "small_scale_mining_permit",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_form_21",
+      "true": "small_scale_mining_permit",
+      "pred": "small_scale_mining_permit",
+      "source": "real",
+      "parse": "json"
+    },
+    {
+      "doc_id": "real_form_25",
+      "true": "renewal_application",
+      "pred": "renewal_application",
+      "source": "real",
+      "parse": "json"
+    }
+  ]
+}

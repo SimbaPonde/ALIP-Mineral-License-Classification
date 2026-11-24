@@ -35,10 +35,10 @@ Every model trains only on the 109 synthetic `train` docs, and is scored on the 
 | TF-IDF + LinearSVC | 0.929 | 0.912 | 7/10 | ✅ done |
 | TF-IDF + LR, class names masked (leakage ablation) | 0.929 | 0.912 | 7/10 | ✅ done |
 | LayoutLMv3 (fine-tuned, processor bug fixed) | — | — | — | ⏳ Colab notebook |
-| Llama 3.1 8B zero-shot | — | — | — | ⏳ Colab notebook |
-| Llama 3.1 8B few-shot | — | — | — | ⏳ Colab notebook |
+| Llama 3.1 8B zero-shot | 0.919 | 0.882 | 8/10 | ✅ done |
+| Llama 3.1 8B few-shot | 0.957 | 0.941 | 8/10 | ✅ done |
 
-All 24 synthetic test docs are classified correctly; every TF-IDF error is on a real form (2 small-scale/artisanal licence applications → New License Application; the renewal form → Small-Scale Mining Permit). With only 10 real documents, differences of a few documents between models will not be statistically significant — `compare_models.py` reports exact McNemar tests.
+No pairwise difference is statistically significant (exact McNemar, all p ≥ 0.69). Zero-shot Llama labels *applications for* a prospecting licence as a prospecting permit (4 errors: 2 synthetic, 2 real); one example per class in the prompt (few-shot) fixes this. Every TF-IDF error is on a real form (2 small-scale/artisanal licence applications → New License Application; the renewal form → Small-Scale Mining Permit). With only 10 real documents, differences of a few documents between models will not be statistically significant — `compare_models.py` reports exact McNemar tests.
 
 ## Reproduce
 

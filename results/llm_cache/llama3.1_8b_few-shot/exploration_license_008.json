@@ -1,0 +1,7 @@
+{
+ "doc_id": "exploration_license_008",
+ "raw": "{\"category\": \"exploration_license\"}",
+ "pred": "exploration_license",
+ "parse": "json",
+ "seconds": 0.9
+}

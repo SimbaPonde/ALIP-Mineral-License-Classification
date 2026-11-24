@@ -1,0 +1,7 @@
+{
+ "doc_id": "mining_lease_011",
+ "raw": "{\"category\": \"mining_lease\"}",
+ "pred": "mining_lease",
+ "parse": "json",
+ "seconds": 0.9
+}

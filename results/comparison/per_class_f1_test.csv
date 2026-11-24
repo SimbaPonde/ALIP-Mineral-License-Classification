@@ -1,9 +1,9 @@
-,TF-IDF + LinearSVC,TF-IDF + LinearSVC [masked],TF-IDF + Logistic Regression,TF-IDF + Logistic Regression [masked]
-Exploration License,1.0,1.0,1.0,1.0
-Prospecting Permit,1.0,1.0,1.0,1.0
-Mining Lease,1.0,1.0,1.0,1.0
-Small-Scale Mining Permit,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.6666666666666666
-New License Application,0.9090909090909091,0.9090909090909091,0.9090909090909091,0.9090909090909091
-Renewal Application,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571
-Environmental Impact Assessment,1.0,1.0,1.0,1.0
-Environmental Compliance Certificate,1.0,1.0,1.0,1.0
+,TF-IDF + LinearSVC,TF-IDF + LinearSVC [masked],TF-IDF + Logistic Regression,TF-IDF + Logistic Regression [masked],Llama 3.1 8B (few-shot),Llama 3.1 8B (zero-shot)
+Exploration License,1.0,1.0,1.0,1.0,1.0,1.0
+Prospecting Permit,1.0,1.0,1.0,1.0,1.0,0.6
+Mining Lease,1.0,1.0,1.0,1.0,1.0,1.0
+Small-Scale Mining Permit,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.75,1.0
+New License Application,0.9090909090909091,0.9090909090909091,0.9090909090909091,0.9090909090909091,0.9090909090909091,0.75
+Renewal Application,0.8571428571428571,0.8571428571428571,0.8571428571428571,0.8571428571428571,1.0,1.0
+Environmental Impact Assessment,1.0,1.0,1.0,1.0,1.0,1.0
+Environmental Compliance Certificate,1.0,1.0,1.0,1.0,1.0,1.0

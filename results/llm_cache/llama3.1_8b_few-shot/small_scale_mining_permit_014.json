@@ -1,0 +1,7 @@
+{
+ "doc_id": "small_scale_mining_permit_014",
+ "raw": "{\"category\": \"small_scale_mining_permit\"}",
+ "pred": "small_scale_mining_permit",
+ "parse": "json",
+ "seconds": 0.8
+}

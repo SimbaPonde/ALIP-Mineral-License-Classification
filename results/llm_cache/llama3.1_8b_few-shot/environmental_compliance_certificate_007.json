@@ -1,0 +1,7 @@
+{
+ "doc_id": "environmental_compliance_certificate_007",
+ "raw": "{\"category\": \"environmental_compliance_certificate\"}",
+ "pred": "environmental_compliance_certificate",
+ "parse": "json",
+ "seconds": 0.9
+}
