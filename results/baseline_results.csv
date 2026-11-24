@@ -1,0 +1,3 @@
+model,accuracy,accuracy_std,f1_macro,f1_macro_std,precision,precision_std,recall,recall_std,train_time_sec
+TF-IDF + Logistic Regression,1.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,4.17
+TF-IDF + SVM (LinearSVC),1.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,2.63

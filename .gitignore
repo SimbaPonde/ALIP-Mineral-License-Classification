@@ -1,0 +1,9 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+layoutlm_dataset/
+best_model/
+*.zip
+.DS_Store

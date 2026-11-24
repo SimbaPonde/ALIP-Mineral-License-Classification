@@ -1,0 +1,126 @@
+{
+  "TF-IDF + Logistic Regression": {
+    "exploration_license": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "prospecting_permit": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "mining_lease": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "small_scale_mining_permit": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "new_license_application": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "renewal_application": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "environmental_impact_assessment": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "environmental_compliance_certificate": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    }
+  },
+  "TF-IDF + SVM (LinearSVC)": {
+    "exploration_license": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "prospecting_permit": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "mining_lease": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "small_scale_mining_permit": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "new_license_application": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "renewal_application": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "environmental_impact_assessment": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "environmental_compliance_certificate": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 20.0
+    },
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    }
+  }
+}
